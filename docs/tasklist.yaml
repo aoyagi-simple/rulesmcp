@@ -1,0 +1,110 @@
+tasks:
+  - title: プロジェクト初期設定
+    status: done
+    description: |
+      TypeScript (Node.js) プロジェクトの初期化とフォルダ構成作成
+      - `npm init`／`tsconfig.json`／`.gitignore` 設定
+      - ESLint／Prettier の導入と基本設定
+
+  - title: 依存パッケージ導入
+    status: done
+    description: |
+      必要ライブラリのインストール
+      - express, @types/express
+      - typescript, ts-node
+      - cors, helmet
+      - eventsource-parser（SSE 補助）
+      - winston または pino（ロギング）
+
+  - title: ルーティング設計
+    status: todo
+    description: |
+      エンドポイント設計書をもとにルート定義
+      - GET  `/sse`
+      - POST `/sse`
+      - GET  `/health`
+
+  - title: SSE トランスポート実装
+    status: todo
+    description: |
+      GET `/sse` での Server-Sent Events ストリームを実装
+      - `Accept: text/event-stream` ヘッダー検証
+      - 再接続用 `retry: 3000` 設定
+      - クライアントごとのコネクション管理
+
+  - title: JSON-RPC リクエスト受信処理
+    status: todo
+    description: |
+      POST `/sse` で JSON-RPC 2.0 リクエストを受信し ACK を返却
+      - `Content-Type: application/json` 検証
+      - HTTP 200 レスポンス実装
+
+  - title: initialize メソッド実装
+    status: todo
+    description: |
+      JSON-RPC メソッド `initialize` のリクエスト／レスポンス処理
+      - パラメータ検証 (`protocolVersion`, `capabilities`, `clientInfo`)
+      - SSE での結果返却 (同一 ID)
+
+  - title: saveConvention メソッド実装
+    status: todo
+    description: |
+      `saveConvention` によるコーディング規約作成機能
+      - 入力パラメータ検証 (`name`, `description`, `rules`)
+      - 永続化（メモリ or DB）
+
+  - title: readConvention メソッド実装
+    status: todo
+    description: |
+      `readConvention` による単一規約取得機能
+      - `id` パラメータ検証
+      - データ取得と SSE での返却
+
+  - title: deleteConvention メソッド実装
+    status: todo
+    description: |
+      `deleteConvention` による規約削除機能
+      - `id` パラメータ検証
+      - 削除処理と結果通知
+
+  - title: listConventions メソッド実装
+    status: todo
+    description: |
+      `listConventions` による一覧取得機能
+      - ページング処理 (`page`, `size` オプション)
+      - 一覧返却とメタ情報付与
+
+  - title: Health エンドポイント実装
+    status: todo
+    description: |
+      GET `/health` の実装
+      - 常に `{ "status": "ok" }` を返却
+      - ヘルスチェック用テスト追加
+
+  - title: セキュリティ設定
+    status: todo
+    description: |
+      - HTTPS 強制化
+      - CORS 制御：許可ドメインのみ
+      - Origin ヘッダー検証およびバインドインターフェース制限
+
+  - title: 非機能要件対応
+    status: todo
+    description: |
+      - 最大同時接続数制御（100 接続まで）
+      - SSE レイテンシ計測と最適化 (<100ms)
+      - ロギング：リクエスト／レスポンス／SSE イベント
+
+  - title: テスト実装
+    status: todo
+    description: |
+      - ユニットテスト（各 JSON-RPC メソッド）
+      - インテグレーションテスト（SSE ストリーム含む）
+      - セキュリティテスト（CORS／Origin）
+
+  - title: デプロイ／インフラ構成
+    status: todo
+    description: |
+      - Dockerfile／docker-compose 設定
+      - サーバー設定（HTTPS/TLS、リバースプロキシ）
+      - モニタリング／アラート設定
